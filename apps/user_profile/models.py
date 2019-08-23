@@ -11,3 +11,6 @@ class UserModel(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def get_full_name(self):
+        return ' '.join([self.last_name, self.first_name, self.middle_name])
