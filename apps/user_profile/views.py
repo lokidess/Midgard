@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
-# Create your views here.
 from django.views.generic import TemplateView
 
 

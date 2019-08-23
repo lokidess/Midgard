@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'debug_toolbar',
     'apps.user_profile',
+    'apps.main',
 ]
 
 MIDDLEWARE = [
