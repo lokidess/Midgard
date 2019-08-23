@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+
     {% block css %}{% endblock css %}
+
+    {% bootstrap_javascript jquery='full' %}
 
 </head>
 <body>
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock navbar %}
 
 {% block content %}
     <h1>{{ hello_world }}</h1>
