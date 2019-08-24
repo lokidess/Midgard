@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -14,3 +16,6 @@ class UserModel(AbstractUser):
 
     def get_full_name(self):
         return ' '.join([self.last_name, self.first_name, self.middle_name])
+
+    def get_absolute_url(self):
+        return reverse('user_profile:view_profile', args=[self.id])
