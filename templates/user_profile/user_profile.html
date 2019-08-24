@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
+{% load bootstrap4 staticfiles %}
 
 {% block content %}
     <div class="container">
@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-header card-primary">Фото</div>
                         <div class="card-block">
-                            "Здесь должно быть фото"
+                            <img alt="image" src="{% static "images/default_avatar.jpg" %}" width="100%" />
                         </div>
                     </div>
                 </div>
