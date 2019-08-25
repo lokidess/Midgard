@@ -37,5 +37,6 @@ class RegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password'])
+        user.slug = self.cleaned_data['username']
         user.save()
         return user

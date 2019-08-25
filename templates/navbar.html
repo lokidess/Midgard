@@ -13,6 +13,9 @@
 
             {% if user.is_authenticated %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_profile:view_self_profile' user.slug %}">Мой профиль</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'user_profile:logout' %}">Выйти</a>
                 </li>
             {% else %}

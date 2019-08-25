@@ -10,11 +10,32 @@ from apps.user_profile.models import UserModel
 
 
 class UserProfileView(TemplateView):
+    """
+    This view for look user profile
+    """
     template_name = 'user_profile/user_profile.html'
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)
         context['full_name'] = get_user_model().objects.get(id=kwargs['user_id']).get_full_name()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.id == kwargs['user_id']:
+            slug = request.user.slug if request.user.slug else request.user.username
+            return redirect(reverse('user_profile:view_self_profile', args=[slug]))
+        return super(UserProfileView, self).get(request, *args, **kwargs)
+
+
+class UserSelfProfileView(TemplateView):
+    """
+    This view for look self profile
+    """
+    template_name = 'user_profile/user_profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserSelfProfileView, self).get_context_data(**kwargs)
+        context['full_name'] = self.request.user.get_full_name()
         return context
 
 
@@ -25,6 +46,9 @@ class UserRegistrationView(CreateView):
     template_name = 'user_profile/registration.html'
     model = UserModel
     form_class = RegistrationForm
+
+    def get_success_url(self):
+        return reverse('user_profile:login')
 
 
 class UserAuthorizationView(LoginView):
