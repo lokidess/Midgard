@@ -66,3 +66,55 @@ class CreateUserTestCase(TestCase):
         response = self.client.post(reverse('user_profile:create_user'), invalid_data)
 
         self.assertEqual(response.status_code, 200)
+
+
+class UserLogoutViewTest(TestCase):
+    """
+    Testing UserLogoutView
+    """
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_logout(self):
+        """
+         Testing logout authorized user
+        """
+        get_user_model().objects.create_user(username='test', email='qwerty@gmail.com', password='123')
+        self.client.login(username='test', password='123')
+
+        response = self.client.get(reverse('user_profile:logout'), follow=True)
+        self.assertTrue(response.context['user'].is_anonymous)
+
+
+class UserAuthorizationViewTest(TestCase):
+    """
+    Testing UserAuthorizationView
+    """
+
+    def setUp(self):
+        self.client = Client()
+        get_user_model().objects.create_user(username='test1', email='qwerty12@gmail.com', password='123')
+        get_user_model().objects.create_user(username='test2', email='qwerty1234@gmail.com', password='123456')
+
+    def test_successful_login(self):
+        """
+        Testing authorization user
+        """
+
+        response = self.client.post(reverse('user_profile:login'), {
+            'username': 'test1',
+            'password': '123'
+        }, follow=True)
+        self.assertTrue(response.context['user'].is_authenticated)
+
+    def test_unsuccessful_login(self):
+        """
+        Testing failure authorization
+        """
+
+        response = self.client.post(reverse('user_profile:login'), {
+            'username': 'test1',
+            'password': '1243'
+        }, follow=True)
+        self.assertTrue(response.context['user'].is_anonymous)
