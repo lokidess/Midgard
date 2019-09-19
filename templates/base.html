@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap4 static %}
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% bootstrap_css %}
+    {% block css %}{% endblock css %}
+
+</head>
+<body>
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock navbar %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block content %}
+{% endblock content %}
+
+{% bootstrap_javascript jquery='full' %}
+{% block js %}{% endblock js %}
+</body>
+</html>
